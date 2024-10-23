@@ -1,26 +1,32 @@
 package mariana.server.controller;
 
+import mariana.server.dto.UserDTO;
 import mariana.server.model.User;
-import mariana.server.service.UserService;
-import mariana.server.shared.GenericResponse;
-import jakarta.validation.Valid;
-import org.springframework.http.ResponseEntity;
+import mariana.server.service.ICrudService;
+import mariana.server.service.IUserService;
+import org.modelmapper.ModelMapper;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("users")
-public class UserController {
+public class UserController extends CrudController<User, UserDTO, Long> {
 
-    private final UserService userService;
+    private final IUserService userService;
+    private final ModelMapper modelMapper;
 
-    public UserController(UserService userService) {
+    public UserController(IUserService userService, ModelMapper modelMapper) {
+        super(User.class, UserDTO.class);
         this.userService = userService;
+        this.modelMapper = new ModelMapper();
     }
 
-    @PostMapping
-    public ResponseEntity<GenericResponse> createUser(@RequestBody @Valid User user) {
-        userService.save(user);
-        return ResponseEntity.ok(new GenericResponse("User saved!"));
+    @Override
+    protected ICrudService<User, Long> getService() {
+        return this.userService;
     }
 
+    @Override
+    protected ModelMapper getModelMapper() {
+        return this.modelMapper;
+    }
 }
