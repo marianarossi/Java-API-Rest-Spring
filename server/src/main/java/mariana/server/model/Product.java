@@ -17,11 +17,17 @@ public class Product {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
     @NotNull
     @Size(min = 2, max = 50)
     private String name;
+
+    @NotNull
     private String description;
+
+    @NotNull
     private BigDecimal price;
+
     @ManyToOne
     @JoinColumn(name = "category_id", referencedColumnName = "id")
     private Category category;

@@ -12,7 +12,6 @@ public class UserServiceImpl extends CrudServiceImpl<User, Long> implements IUse
     private final UserRepository userRepository;
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
 
-
     public UserServiceImpl(UserRepository userRepository) {
         this.userRepository = userRepository;
         this.bCryptPasswordEncoder = new BCryptPasswordEncoder();

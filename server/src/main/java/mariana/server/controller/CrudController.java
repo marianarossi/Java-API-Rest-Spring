@@ -100,5 +100,4 @@ public abstract class CrudController <T, D, ID extends Serializable> {
         getService().delete(id);
         return ResponseEntity.noContent().build();
     }
-
 }
