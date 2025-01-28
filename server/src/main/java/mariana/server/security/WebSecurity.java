@@ -50,10 +50,13 @@ public class WebSecurity {
 
         http.cors(AbstractHttpConfigurer::disable);
 
+
         http.authorizeHttpRequests(authorizeRequests ->
                 authorizeRequests
                         .requestMatchers(antMatcher("/h2-console/**")).permitAll()
                         .requestMatchers(antMatcher(HttpMethod.POST, "/users/**")).permitAll()
+                        .requestMatchers(antMatcher(HttpMethod.GET, "/products/**")).permitAll()
+
                         .requestMatchers(antMatcher(HttpMethod.POST, "/error/**")).permitAll()
                         //no projeto, precisa listar sem estar cadastrado
                         .anyRequest().authenticated());
